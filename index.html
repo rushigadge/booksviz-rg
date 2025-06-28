@@ -23,7 +23,7 @@ footer{text-align:center;font-size:13px;color:#555;margin:20px 0}
 </article>
 <footer>Visualization by Codex using <a href="https://github.com/zygmuntz/goodbooks-10k" target="_blank">Goodreads</a> data.</footer>
 <script>
-fetch('scatter_data.json').then(r=>r.json()).then(data=>{const cfg=[
+fetch('scatter_data.json').then(r=>{if(!r.ok)throw new Error('load');return r.json();}).then(data=>{const cfg=[
   {x:d=>d.pages,y:d=>d.rating,xlab:'Pages',ylab:'Rating',title:'Pages vs Rating'},
   {x:d=>d.blurb,y:d=>d.rating,xlab:'Blurb Length',ylab:'Rating',title:'Blurb Length vs Rating'},
   {x:d=>Math.log10(d.reviews),y:d=>d.rating,xlab:'log10 Reviews',ylab:'Rating',title:'log10(Reviews) vs Rating'}];
@@ -52,7 +52,7 @@ g.append('text').attr('x',W/2).attr('y',-5).attr('text-anchor','middle').text(c.
 g.append('text').attr('x',W/2).attr('y',H+35).attr('text-anchor','middle').text(c.xlab);
 g.append('text').attr('transform','rotate(-90)').attr('x',-H/2).attr('y',-35).attr('text-anchor','middle').text(c.ylab);
 });}
-window.addEventListener('resize',draw);draw();});
+window.addEventListener('resize',draw);draw();}).catch(e=>{document.getElementById('plots').innerHTML='<p style="color:red;text-align:center">Failed to load data. Run preprocess.py and serve via http.server</p>';console.error(e);});
 </script>
 </body>
 </html>

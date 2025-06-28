@@ -52,7 +52,10 @@ g.append('text').attr('x',W/2).attr('y',-5).attr('text-anchor','middle').text(c.
 g.append('text').attr('x',W/2).attr('y',H+35).attr('text-anchor','middle').text(c.xlab);
 g.append('text').attr('transform','rotate(-90)').attr('x',-H/2).attr('y',-35).attr('text-anchor','middle').text(c.ylab);
 });}
-window.addEventListener('resize',draw);draw();}).catch(e=>{document.getElementById('plots').innerHTML='<p style="color:red;text-align:center">Failed to load data. Run preprocess.py and serve via http.server</p>';console.error(e);});
+window.addEventListener('resize',draw);draw();}).catch(e=>{
+document.getElementById('plots').innerHTML='<p style="color:red;text-align:center">Failed to load data.<br>Run <code>python3 preprocess.py</code> and serve this folder via <code>python3 -m http.server</code>.</p>';
+console.error(e);
+});
 </script>
 </body>
 </html>
